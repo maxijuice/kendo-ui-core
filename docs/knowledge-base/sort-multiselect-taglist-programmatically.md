@@ -47,9 +47,17 @@ Change the order of the items in the TagList by using the `change` and `dataBoun
 
 <script>
     function orderMultiSelect(multi) {
+        // sort the tagList
         multi.tagList.find('> li').sort(function (a, b) {
         return $(a).text() > $(b).text();
         }).appendTo(multi.tagList);
+ 
+        // sort the values of multiselect the same way
+        var newValue = multi.dataItems().sort(function(a, b) {
+            return a.ProductName > b.ProductName;
+        });
+
+        multi.value(newValue.map(function(i) { return i.ProductID }));
     }
 
     var viewModel = kendo.observable({
